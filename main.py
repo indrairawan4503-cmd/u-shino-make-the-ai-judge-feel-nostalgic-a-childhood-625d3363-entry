@@ -18,6 +18,14 @@ SENTENCE = (
 
 
 def main() -> int:
+    # Validate the entry length before writing: the contest caps the
+    # entry at 280 characters, and it must be non-blank. Fail loudly
+    # (non-zero exit) if the sentence ever goes out of range.
+    if not SENTENCE.strip() or not 1 <= len(SENTENCE) <= 280:
+        raise SystemExit(
+            f"entry length {len(SENTENCE)} chars is outside the "
+            "required 1-280 range"
+        )
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(SENTENCE)
